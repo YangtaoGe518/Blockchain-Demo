@@ -57,17 +57,17 @@ class Blockchain {
         if (!transaction.isValid()) {
             throw new Error('Cannot add invalid transaction to chain');
         }
-        if (transaction.amount <= 0) {
-            throw new Error('Transaction amount should be higher than 0');
-        }
-        if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
-            throw new Error('Not enough balance');
-        }
+        // if (transaction.amount <= 0) {
+        //     throw new Error('Transaction amount should be higher than 0');
+        // }
+        // if (this.getBalanceOfAddress(transaction.fromAddress) < transaction.amount) {
+        //     throw new Error('Not enough balance');
+        // }
 
         this.pendingTransactions.push(transaction);
     }
 
-    getAllTransactionsForWallet(address: string) {
+    getAllTransactionsForWallet(address: string): Transaction[] {
         const txs = [];
 
         for (const block of this.chain) {
@@ -81,7 +81,7 @@ class Blockchain {
         return txs;
     }
 
-    isChainValid() {
+    isChainValid() : boolean{
         const realGenesis = JSON.stringify(this.createGenesisBlock());
 
         if (realGenesis !== JSON.stringify(this.chain[0])) {
